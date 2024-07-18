@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Titolo della pagina-->
+    <title>Infinite Scrolling</title>
+    <!--Collegamento con il file CSS-->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <!--Corpo della pagina-->
+  <body>
+    <!--Contenitore-->
+    <div id="container"></div>
+    <!--Script-->
+    <script>
+      //Immagini
+      let currentPage = 1;
+      function loadImage() {
+        let image = Array.from({ length: 24 }, (_, index) => {
+          return `<img src ="img/img${index + 1}.jpg">`;
+        });
+        let container = document.getElementById("container");
+        container.innerHTML += image.join("");
+      }
+      loadImage();
+
+      //Infinite Scrolling
+      window.addEventListener("scroll", function () {
+        let { scrollTop, clientHeight, scrollHeight } =
+          document.documentElement;
+
+        if (scrollTop + clientHeight >= scrollHeight) {
+          currentPage++;
+          loadImage();
+        }
+      });
+    </script>
+  </body>
+</html>
